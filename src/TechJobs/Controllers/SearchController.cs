@@ -15,22 +15,22 @@ namespace TechJobs.Controllers
 
         
        
-        [Route("Search/Results")]
         [HttpPost]
         public IActionResult Results(string searchType, string searchTerm)
         {
-            ViewBag.columns = ListController.columnChoices;
-            ViewBag.columns = searchType;
-            ViewBag.title = searchType;
-            if (searchTerm.Equals("all"))
+            if (searchType.Equals("all"))
             {
-                ViewBag.jobs = JobData.FindByValue(searchTerm);
+                List<Dictionary<string, string>> searchResults = JobData.FindByValue(searchTerm);
+                ViewBag.jobs = searchResults;
             }
 
             else
             {
-                ViewBag.jobs = JobData.FindByColumnAndValue(searchType, searchTerm);
+                List<Dictionary<string, string>> searchResults = JobData.FindByColumnAndValue(searchType, searchTerm);
+                ViewBag.jobs = searchResults;
             }
+            ViewBag.columns = ListController.columnChoices;
+            ViewBag.title = "Search by " + ListController.columnChoices[searchType] + ": " + searchTerm;
             return View("Index");
         }
 

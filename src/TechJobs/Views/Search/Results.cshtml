@@ -1,9 +1,0 @@
-﻿@{ 
-
-}
-<h1>@ViewBag.title</h1>  
-@if(ViewBag.results != null)
-{
-    <p>@ViewBag.results.Count jobs found.</p>
-    @Html.Partial("_ViewJobs");
-}
